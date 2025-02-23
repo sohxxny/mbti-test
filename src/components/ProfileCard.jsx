@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { updateProfile } from '../api/auth';
+import { authStore } from '../zustand/authStore';
 
 /**
  * * 유저 프로필 카드 컴포넌트
@@ -9,8 +10,19 @@ import { updateProfile } from '../api/auth';
  * @param {string} props.token - 사용자의 access token
  * @returns {JSX.Element} 사용자 프로필 컴포넌트
  */
-export const ProfileCard = ({ userProfile, token }) => {
-  const [nickname, setNickname] = useState(userProfile.nickname);
+export const ProfileCard = () => {
+  const { isLogin, user } = authStore();
+  const [userProfile, setUserProfile] = useState(null);
+  const [nickname, setNickname] = useState('');
+  const token = localStorage.getItem('token');
+
+  // 로그인 체크 후 정보 세팅하기
+  useEffect(() => {
+    if (isLogin && user) {
+      setUserProfile(user);
+      setNickname(user.nickname);
+    }
+  }, [isLogin, user]);
 
   /**
    * * 프로필 변경 폼 제출 핸들러
@@ -29,6 +41,11 @@ export const ProfileCard = ({ userProfile, token }) => {
       alert(error.message);
     }
   };
+
+  // 유저 정보가 없으면 로딩 띄우기
+  if (!userProfile) {
+    return <p>로딩중입니다...</p>;
+  }
 
   return (
     <div>

@@ -19,7 +19,7 @@ export const AuthForm = ({ type }) => {
   const navigate = useNavigate();
 
   /**
-   * * 입력 필드 변경 핸들러
+   * * 아이디/비밀번호/닉네임 입력 필드 변경 핸들러
    * @param {React.ChangeEvent<HTMLInputElement>} e - 이벤트 객체
    */
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ export const AuthForm = ({ type }) => {
   };
 
   /**
-   * * 폼 제출 핸들러
+   * * 로그인 및 회원가입 폼 제출 핸들러
    * @param {React.FormEvent<HTMLFormElement>} e - 이벤트 객체
    */
   const handleSubmit = async (e) => {

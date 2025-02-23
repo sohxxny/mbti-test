@@ -57,3 +57,26 @@ export const getUserProfile = async (token) => {
     throw new Error(error.response.data.message);
   }
 };
+
+/**
+ * * 사용자 프로필을 변경하는 함수
+ * @param {FormData} formData - 업로드할 데이터 { nickname }
+ * @param {string} token - 사용자의 access token
+ * @returns {Promise<Object>} 로그인 성공 시 서버 응답 데이터
+ *   response.data - { avatar, nickname, message, success }
+ * @throws {Error} 로그인 실패 시 에러 메시지를 포함한 Error 객체
+ */
+export const updateProfile = async (formData, token) => {
+  try {
+    const response = await axios.patch(`${apiUrl}/profile`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error.response.data.message);
+  }
+};

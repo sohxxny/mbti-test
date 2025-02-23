@@ -7,10 +7,10 @@ import { getUserProfile } from '../api/auth';
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   // TODO - 프로덕션 모드에서 문제 없이 실행되는지 확인하기
   useEffect(() => {
-    const token = localStorage.getItem('token');
     // * 로그인 체크 함수
     const checkLogin = async () => {
       // 토큰 없을 경우 로그인 페이지로 이동
@@ -33,13 +33,12 @@ const Profile = () => {
     };
 
     checkLogin();
-  }, [navigate]);
+  }, [navigate, token]);
 
   if (!userProfile) {
     return <p>로딩중입니다...</p>;
   }
-
-  return <ProfileCard userProfile={userProfile} />;
+  return <ProfileCard userProfile={userProfile} token={token} />;
 };
 
 export default Profile;

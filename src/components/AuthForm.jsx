@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { register } from '../api/auth';
+import { login, register } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -37,11 +37,20 @@ export const AuthForm = ({ type }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === 'login') {
-      // 로그인 함수 호출
+      const { id, password } = formData;
+      try {
+        const data = await login({ id, password });
+        alert('로그인이 완료되었습니다! 홈으로 이동합니다.');
+        console.log('data ➡️', data);
+        navigate('/');
+      } catch (error) {
+        alert('회원가입 도중 오류가 발생했습니다.');
+        console.error('회원가입 에러 발생:', error);
+      }
     } else {
       try {
         await register(formData);
-        alert('회원가입이 완료되었습니다!');
+        alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
         navigate('/login');
       } catch (error) {
         alert('회원가입 도중 오류가 발생했습니다.');

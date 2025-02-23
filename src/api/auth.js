@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://www.nbcamp-react-auth.link';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 /**
  * * 회원가입 함수
@@ -10,7 +10,7 @@ const API_URL = 'https://www.nbcamp-react-auth.link';
  */
 export const register = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, userData);
+    const response = await axios.post(`${apiUrl}/register`, userData);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -27,8 +27,30 @@ export const register = async (userData) => {
  */
 export const login = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, userData);
+    const response = await axios.post(`${apiUrl}/login`, userData);
     localStorage.setItem('token', response.data.accessToken);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+/**
+ * * 회원정보 가져오기 함수
+ * @param {string} token - 사용자의 access token
+ * @returns {Promise<Object>} 로그인 성공 시 서버 응답 데이터
+ *   response.data - { id, nickname, avatar, success }
+ * @throws {Error} 로그인 실패 시 에러 메시지를 포함한 Error 객체
+ */
+export const getUserProfile = async (token) => {
+  try {
+    const response = await axios.get(`${apiUrl}/user`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);

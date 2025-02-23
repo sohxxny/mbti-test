@@ -36,25 +36,24 @@ export const AuthForm = ({ type }) => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // 로그인
     if (type === 'login') {
       const { id, password } = formData;
       try {
-        const data = await login({ id, password });
+        await login({ id, password });
         alert('로그인이 완료되었습니다! 홈으로 이동합니다.');
-        console.log('data ➡️', data);
         navigate('/');
       } catch (error) {
-        alert('회원가입 도중 오류가 발생했습니다.');
-        console.error('회원가입 에러 발생:', error);
+        alert(error.message);
       }
+      // 회원가입
     } else {
       try {
         await register(formData);
         alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
         navigate('/login');
       } catch (error) {
-        alert('회원가입 도중 오류가 발생했습니다.');
-        console.error('회원가입 에러 발생:', error);
+        alert(error.message);
       }
     }
   };

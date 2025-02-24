@@ -18,7 +18,13 @@ export const Router = () => {
   // * 인증된 사용자만 접근할 수 있는 라우트 제공
   const PrivateRoute = () => {
     const { isLogin } = authStore();
-    return isLogin ? <Outlet /> : <Navigate to="/login" />;
+
+    if (!isLogin) {
+      alert('로그인이 필요합니다.');
+      return <Navigate to="/login" />;
+    }
+
+    return <Outlet />;
   };
 
   // * 비인증 사용자만 접근할 수 있는 라우트 제공

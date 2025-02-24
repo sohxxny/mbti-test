@@ -66,13 +66,17 @@ export const AuthForm = ({ type }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="w-full flex flex-col justify-center items-center gap-4"
+    >
       <input
         type="text"
         name="id"
         value={formData.email}
         onChange={handleChange}
         placeholder="아이디"
+        className="w-full border border-lighgray-400 rounded-md p-4"
       />
       <input
         type="password"
@@ -80,6 +84,7 @@ export const AuthForm = ({ type }) => {
         value={formData.password}
         onChange={handleChange}
         placeholder="비밀번호"
+        className="w-full border border-lighgray-400 rounded-md p-4"
       />
       {type === 'signup' && (
         <input
@@ -88,9 +93,15 @@ export const AuthForm = ({ type }) => {
           value={formData.nickname}
           onChange={handleChange}
           placeholder="닉네임"
+          className="w-full border border-lighgray-400 rounded-md p-4"
         />
       )}
-      <button type="submit">{type === 'login' ? '로그인' : '회원가입'}</button>
+      <button
+        type="submit"
+        className="w-full px-5 py-4 m-3 font-semibold rounded-lg bg-[#34495e] hover:bg-[#425e79] text-white"
+      >
+        {type === 'login' ? '로그인' : '회원가입'}
+      </button>
     </form>
   );
 };

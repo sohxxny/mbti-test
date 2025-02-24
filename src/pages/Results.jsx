@@ -23,5 +23,9 @@ export const Results = () => {
     return <div>로딩중입니다...</div>;
   }
 
-  return <TestResultList results={results} />;
+  return (
+    <div className="flex justify-center items-center">
+      <TestResultList results={results} />
+    </div>
+  );
 };

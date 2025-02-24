@@ -7,12 +7,12 @@ export const Test = () => {
   const [result, setResult] = useState(null);
 
   return (
-    <>
+    <div className="flex justify-center items-center">
       {!result ? (
         <TestForm setResult={setResult} />
       ) : (
         <MyResult result={result} />
       )}
-    </>
+    </div>
   );
 };

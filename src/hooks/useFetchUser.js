@@ -13,7 +13,6 @@ export const useFetchUser = () => {
 
     // * 유저 정보를 가져오는 함수
     const fetchUser = async () => {
-      console.log('유저 정보 패치');
       try {
         const response = await getUserProfile(token);
         const { avatar, nickname } = response;
@@ -26,7 +25,6 @@ export const useFetchUser = () => {
           setUser(null);
           setId(null);
           setLogin(false);
-          navigate('/login');
           return;
         }
         alert(error.message);

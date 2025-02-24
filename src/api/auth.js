@@ -39,9 +39,9 @@ export const login = async (userData) => {
 /**
  * * 회원정보 가져오기 함수
  * @param {string} token - 사용자의 access token
- * @returns {Promise<Object>} 로그인 성공 시 서버 응답 데이터
+ * @returns {Promise<Object>} 회원정보 가져오기 성공 시 서버 응답 데이터
  *   response.data - { id, nickname, avatar, success }
- * @throws {Error} 로그인 실패 시 에러 객체
+ * @throws {Error} 회원정보 가져오기 실패 시 에러 객체
  */
 export const getUserProfile = async (token) => {
   try {
@@ -62,9 +62,9 @@ export const getUserProfile = async (token) => {
  * * 사용자 프로필을 변경하는 함수
  * @param {FormData} formData - 업로드할 데이터 { nickname }
  * @param {string} token - 사용자의 access token
- * @returns {Promise<Object>} 로그인 성공 시 서버 응답 데이터
+ * @returns {Promise<Object>} 프로필 변경 성공 시 서버 응답 데이터
  *   response.data - { avatar, nickname, message, success }
- * @throws {Error} 로그인 실패 시 에러 메시지를 포함한 Error 객체
+ * @throws {Error} 프로필 변경 실패 시 에러 메시지를 포함한 Error 객체
  */
 export const updateProfile = async (formData, token) => {
   try {

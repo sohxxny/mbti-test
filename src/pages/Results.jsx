@@ -1,0 +1,27 @@
+import { useEffect, useState } from 'react';
+import { getTestResults } from '../api/testResult';
+import { TestResultList } from '../components/TestResultList';
+
+// * 결과 리스트 페이지 컴포넌트
+export const Results = () => {
+  const [results, setResults] = useState(null);
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const data = await getTestResults();
+        setResults(data);
+      } catch (error) {
+        alert(error.message);
+        console.error(error);
+      }
+    };
+    fetchResults();
+  }, []);
+
+  if (!results) {
+    return <div>로딩중입니다...</div>;
+  }
+
+  return <TestResultList results={results} />;
+};

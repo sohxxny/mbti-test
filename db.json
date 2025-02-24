@@ -1,0 +1,12 @@
+{
+  "testResults": [
+    {
+      "id": "test",
+      "nickname": "TEST",
+      "result": "ESTJ",
+      "visibility": false,
+      "date": "2025-02-24",
+      "userId": "test"
+    }
+  ]
+}

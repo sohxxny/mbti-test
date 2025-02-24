@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { login, register } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import { authStore } from '../zustand/authStore';
 
 /**
  * * 로그인과 회원가입에 사용되는 폼 컴포넌트
@@ -9,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
  * @returns {JSX.Element} 로그인 또는 회원가입 폼 컴포넌트
  */
 export const AuthForm = ({ type }) => {
+  const { setLogin, setUser } = authStore();
+
   // 폼 데이터 상태
   const [formData, setFormData] = useState({
     id: '',
@@ -44,6 +47,8 @@ export const AuthForm = ({ type }) => {
         alert('로그인이 완료되었습니다! 홈으로 이동합니다.');
         navigate('/');
       } catch (error) {
+        setLogin(false);
+        setUser(null);
         alert(error.message);
       }
       // 회원가입

@@ -41,7 +41,7 @@ export const login = async (userData) => {
  * @param {string} token - 사용자의 access token
  * @returns {Promise<Object>} 로그인 성공 시 서버 응답 데이터
  *   response.data - { id, nickname, avatar, success }
- * @throws {Error} 로그인 실패 시 에러 메시지를 포함한 Error 객체
+ * @throws {Error} 로그인 실패 시 에러 객체
  */
 export const getUserProfile = async (token) => {
   try {
@@ -54,7 +54,7 @@ export const getUserProfile = async (token) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error(error.response.data.message);
+    throw error;
   }
 };
 

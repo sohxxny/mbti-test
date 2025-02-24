@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { questions } from '../data/questions';
+import { calculateMBTI } from '../utils/mbtiCalculator';
 
 /**
  * * 테스트 폼 컴포넌트
@@ -38,29 +39,33 @@ export const TestForm = ({ setResult }) => {
       alert('모든 질문에 응답해주세요!');
       return;
     }
-    setResult(answers);
+    const result = calculateMBTI(answers);
+    setResult(result);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {questions.map((question, index) => (
-        <div key={question.id}>
-          <p>{question.question}</p>
-          {question.options.map((option, i) => (
-            <label key={i}>
-              <input
-                type="radio"
-                name={`question-${question.id}`}
-                value={option}
-                checked={answers[index]?.answer === option}
-                onChange={() => handleChange(index, option)}
-              />
-              {option}
-            </label>
-          ))}
-        </div>
-      ))}
-      <button type="submit">제출하기</button>
-    </form>
+    <div>
+      <h2>MBTI 테스트</h2>
+      <form onSubmit={handleSubmit}>
+        {questions.map((question, index) => (
+          <div key={question.id}>
+            <p>{question.question}</p>
+            {question.options.map((option, i) => (
+              <label key={i}>
+                <input
+                  type="radio"
+                  name={`question-${question.id}`}
+                  value={option}
+                  checked={answers[index]?.answer === option}
+                  onChange={() => handleChange(index, option)}
+                />
+                {option}
+              </label>
+            ))}
+          </div>
+        ))}
+        <button type="submit">제출하기</button>
+      </form>
+    </div>
   );
 };

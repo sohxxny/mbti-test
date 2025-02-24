@@ -11,7 +11,7 @@ import { authStore } from '../zustand/authStore';
  * @returns {JSX.Element} questions 배열을 기반으로 그린 테스트 폼 컴포넌트
  */
 export const TestForm = ({ setResult }) => {
-  const { user } = authStore();
+  const { user, id } = authStore();
   /**
    * * 테스트 답변 상태 객체 배열
    * 질문 수만큼 빈 type, answer 값 할당
@@ -50,7 +50,7 @@ export const TestForm = ({ setResult }) => {
       result: mbtiResult,
       visibility: false,
       date: new Date(),
-      userId: 'test1234',
+      userId: id,
     });
   };
 

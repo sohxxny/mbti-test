@@ -10,7 +10,7 @@ import { authStore } from '../zustand/authStore';
  * @returns {JSX.Element} 로그인 또는 회원가입 폼 컴포넌트
  */
 export const AuthForm = ({ type }) => {
-  const { setLogin, setUser } = authStore();
+  const { setLogin, setUser, setId } = authStore();
 
   // 폼 데이터 상태
   const [formData, setFormData] = useState({
@@ -44,10 +44,12 @@ export const AuthForm = ({ type }) => {
       const { id, password } = formData;
       try {
         await login({ id, password });
+        setId(id);
         alert('로그인이 완료되었습니다! 홈으로 이동합니다.');
         navigate('/');
       } catch (error) {
         setLogin(false);
+        setId(null);
         setUser(null);
         alert(error.message);
       }

@@ -11,6 +11,8 @@ import Signup from '../pages/Signup';
 import Profile from '../pages/Profile';
 import { authStore } from '../zustand/authStore';
 import { Layout } from '../components/Layout';
+import { Test } from '../pages/Test';
+import { Results } from '../pages/Results';
 
 export const Router = () => {
   // * 인증된 사용자만 접근할 수 있는 라우트 제공
@@ -41,6 +43,8 @@ export const Router = () => {
           {/* private 라우트 */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/results" element={<Results />} />
           </Route>
         </Route>
       </Routes>

@@ -1,0 +1,20 @@
+{
+  "testResults": [
+    {
+      "id": "test1",
+      "nickname": "test1",
+      "result": "ISTJ",
+      "visibility": true,
+      "date": "2025-02-24T12:46:48.376Z",
+      "userId": "test1"
+    },
+    {
+      "id": "test2",
+      "nickname": "test2",
+      "result": "ENFP",
+      "visibility": false,
+      "date": "2025-02-24T12:46:48.376Z",
+      "userId": "test2"
+    }
+  ]
+}

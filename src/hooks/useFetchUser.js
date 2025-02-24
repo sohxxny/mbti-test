@@ -3,20 +3,17 @@ import { getUserProfile } from '../api/auth';
 import { authStore } from '../zustand/authStore';
 import { useNavigate } from 'react-router-dom';
 
-/**
- * * 로컬 스토리지의 토큰으로부터 유저 정보를 가져오는 커스텀 훅
- * @param {boolean} isAuthPage - 인증 관련 페이지 여부
- *    (로그인 페이지로 리다이렉트 필요하지 않을 경우 true)
- */
-export const useFetchUser = (isAuthPage) => {
+// * 로컬 스토리지의 토큰으로부터 유저 정보를 가져오는 커스텀 훅
+export const useFetchUser = () => {
   const navigate = useNavigate();
-  const { user, setUser, isLogin, setLogin } = authStore();
+  const { setUser, setLogin, setId } = authStore();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     // * 유저 정보를 가져오는 함수
     const fetchUser = async () => {
+      console.log('유저 정보 패치');
       try {
         const response = await getUserProfile(token);
         const { avatar, nickname } = response;
@@ -26,12 +23,10 @@ export const useFetchUser = (isAuthPage) => {
         // 토큰 관련 오류
         if (error.status === 401 || error.status === 403) {
           localStorage.removeItem('token');
-          user && setUser(null);
-          isLogin && setLogin(false);
-          if (!isAuthPage) {
-            alert('로그인이 필요합니다.');
-            navigate('/login');
-          }
+          setUser(null);
+          setId(null);
+          setLogin(false);
+          navigate('/login');
           return;
         }
         alert(error.message);
@@ -39,5 +34,5 @@ export const useFetchUser = (isAuthPage) => {
     };
 
     fetchUser();
-  }, [navigate, user, setUser, isLogin, setLogin, isAuthPage]);
+  }, [navigate, setUser, setId, setLogin]);
 };

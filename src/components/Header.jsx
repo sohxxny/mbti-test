@@ -21,7 +21,7 @@ export const Header = () => {
         {isLogin ? (
           <>
             <Link to="/profile">프로필</Link>
-            <Link to="/">테스트</Link>
+            <Link to="/test">테스트</Link>
             <Link to="/">결과 보기</Link>
             <button onClick={handleLogout}>로그아웃</button>
           </>

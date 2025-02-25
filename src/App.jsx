@@ -1,7 +1,13 @@
+import { CustomToastContainer } from './components/Toast';
 import { Router } from './shared/Router';
 
 const App = () => {
-  return <Router />;
+  return (
+    <>
+      <CustomToastContainer />
+      <Router />
+    </>
+  );
 };
 
 export default App;

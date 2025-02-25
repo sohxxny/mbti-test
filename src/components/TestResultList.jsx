@@ -6,6 +6,7 @@ import {
   updateTestResultVisibility,
 } from '../api/testResult';
 import { useState } from 'react';
+import { errorToast, successToast } from '../utils/toastConfig';
 
 /**
  * * 테스트 결과 리스트
@@ -30,9 +31,10 @@ export const TestResultList = ({ results }) => {
       try {
         await deleteTestResult(id);
         setFilteredResults(filteredResults.filter((item) => item.id !== id));
+        successToast('삭제되었습니다.');
       } catch (error) {
         console.error(error);
-        alert(error.message);
+        errorToast(error.message);
       }
     }
   };
@@ -68,10 +70,11 @@ const TestResultItem = ({ result, handleDeleteResult }) => {
   const handleVisibilityToggle = async () => {
     try {
       await updateTestResultVisibility(result.id, !isVisibility);
+      successToast(`${isVisibility ? '비공개' : '공개'}로 전환되었습니다.`);
       setVisibility(!isVisibility);
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 

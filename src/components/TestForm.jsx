@@ -3,6 +3,7 @@ import { questions } from '../data/questions';
 import { calculateMBTI } from '../utils/mbtiCalculator';
 import { createTestResult } from '../api/testResult';
 import { authStore } from '../zustand/authStore';
+import { warningToast } from '../utils/toastConfig';
 
 /**
  * * 테스트 폼 컴포넌트
@@ -39,7 +40,7 @@ export const TestForm = ({ setResult }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (answers.some((item) => !item.answer)) {
-      alert('모든 질문에 응답해주세요!');
+      warningToast('모든 질문에 응답해주세요!');
       return;
     }
     const mbtiResult = calculateMBTI(answers);

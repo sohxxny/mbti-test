@@ -13,6 +13,7 @@ import { authStore } from '../zustand/authStore';
 import { Layout } from '../components/Layout';
 import { Test } from '../pages/Test';
 import { Results } from '../pages/Results';
+import { warningToast } from '../utils/toastConfig';
 
 export const Router = () => {
   // * 인증된 사용자만 접근할 수 있는 라우트 제공
@@ -20,7 +21,7 @@ export const Router = () => {
     const { isLogin } = authStore();
 
     if (!isLogin) {
-      alert('로그인이 필요합니다.');
+      warningToast('로그인이 필요합니다.');
       return <Navigate to="/login" />;
     }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { updateProfile } from '../api/auth';
 import { authStore } from '../zustand/authStore';
+import { successToast, errorToast } from '../utils/toastConfig';
 
 /**
  * * 유저 프로필 카드 컴포넌트
@@ -36,9 +37,9 @@ export const ProfileCard = () => {
 
     try {
       const data = await updateProfile(formData, token);
-      alert(data.message);
+      successToast(data.message);
     } catch (error) {
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 

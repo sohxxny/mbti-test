@@ -6,9 +6,11 @@ export const Layout = () => {
   useFetchUser();
 
   return (
-    <>
+    <div>
       <Header />
-      <Outlet />
-    </>
+      <main className="p-10">
+        <Outlet />
+      </main>
+    </div>
   );
 };

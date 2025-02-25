@@ -1,0 +1,10 @@
+/* postcss-import */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-[#444444];
+  }
+}

@@ -14,7 +14,11 @@ const Signup = () => {
       navigate('/');
     }
   }, [isLogin, navigate]);
-  return <SignupForm />;
+  return (
+    <div className="flex justify-center items-center">
+      <SignupForm />
+    </div>
+  );
 };
 
 export default Signup;

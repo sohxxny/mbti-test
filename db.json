@@ -15,6 +15,30 @@
       "visibility": false,
       "date": "2025-02-24T12:46:48.376Z",
       "userId": "test2"
+    },
+    {
+      "id": "cb97",
+      "nickname": "자고싶은밤",
+      "result": "ESTJ",
+      "visibility": true,
+      "date": "2025-02-24T17:58:43.124Z",
+      "userId": "dkssudzz"
+    },
+    {
+      "id": "6c2c",
+      "nickname": "졸리당",
+      "result": "ESFJ",
+      "visibility": true,
+      "date": "2025-02-24T19:25:23.878Z",
+      "userId": "wkrhtlvek"
+    },
+    {
+      "id": "0694",
+      "nickname": "자고싶은밤",
+      "result": "INFP",
+      "visibility": true,
+      "date": "2025-02-24T19:31:30.957Z",
+      "userId": "dkssudzz"
     }
   ]
 }

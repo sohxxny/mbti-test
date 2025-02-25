@@ -6,6 +6,7 @@ import {
   updateTestResultVisibility,
 } from '../api/testResult';
 import { useState } from 'react';
+import { errorToast, successToast } from '../utils/toastConfig';
 
 /**
  * * 테스트 결과 리스트
@@ -17,7 +18,7 @@ import { useState } from 'react';
 export const TestResultList = ({ results }) => {
   const { id } = authStore();
   const [filteredResults, setFilteredResults] = useState(
-    results.filter((item) => item.visibility || item.userId === id)
+    results.filter((item) => item.visibility || item.userId === id).reverse()
   );
 
   /**
@@ -30,16 +31,19 @@ export const TestResultList = ({ results }) => {
       try {
         await deleteTestResult(id);
         setFilteredResults(filteredResults.filter((item) => item.id !== id));
+        successToast('삭제되었습니다.');
       } catch (error) {
         console.error(error);
-        alert(error.message);
+        errorToast(error.message);
       }
     }
   };
 
   return (
-    <div>
-      <h2>모든 테스트 결과</h2>
+    <div className="flex flex-col justify-center items-center shadow-xl p-10 rounded-xl w-[90%] m-10 gap-10 bg-[#fbfbfd]">
+      <h2 className="font-semibold text-3xl m-5">
+        다른 사람들의 결과를 확인해볼까요?
+      </h2>
       {filteredResults.map((result) => (
         <TestResultItem
           key={result.id}
@@ -66,28 +70,39 @@ const TestResultItem = ({ result, handleDeleteResult }) => {
   const handleVisibilityToggle = async () => {
     try {
       await updateTestResultVisibility(result.id, !isVisibility);
+      successToast(`${isVisibility ? '비공개' : '공개'}로 전환되었습니다.`);
       setVisibility(!isVisibility);
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 
   return (
-    <div>
-      <div>
-        <h4>{result.nickname}</h4>
-        <span>{formatDate(result.date)}</span>
+    <div className="flex flex-col shadow-lg p-10 rounded-xl w-[90%] max-w-[700px] min-w-[300px] bg-[#34495e] text-white">
+      <div className="flex justify-center items-center border-b border-gray-500 pb-5">
+        <h4 className="flex-grow font-semibold text-lg">{result.nickname}</h4>
+        <span className="font-light text-sm">{formatDate(result.date)}</span>
       </div>
-      <h4>{result.result}</h4>
+      <h4 className="font-semibold text-3xl pt-5 pb-3 text-[#FFDC00]">
+        {result.result}
+      </h4>
       <p>{mbtiDescriptions[result.result]}</p>
       {id === result.userId ? (
-        <>
-          <button onClick={handleVisibilityToggle}>
+        <div className="flex ml-auto gap-3 mt-5">
+          <button
+            onClick={handleVisibilityToggle}
+            className="px-4 py-2 font-semibold rounded-lg shadow bg-[#edf6fc] hover:bg-[#d7eaf8] text-[#444444]"
+          >
             {isVisibility ? '비공개로 전환' : '공개로 전환'}
           </button>
-          <button onClick={() => handleDeleteResult(result.id)}>삭제</button>
-        </>
+          <button
+            onClick={() => handleDeleteResult(result.id)}
+            className="px-4 py-2 font-semibold rounded-lg shadow bg-[#f1674f] hover:bg-[#ea573d] text-white"
+          >
+            삭제
+          </button>
+        </div>
       ) : (
         <></>
       )}

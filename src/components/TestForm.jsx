@@ -3,6 +3,7 @@ import { questions } from '../data/questions';
 import { calculateMBTI } from '../utils/mbtiCalculator';
 import { createTestResult } from '../api/testResult';
 import { authStore } from '../zustand/authStore';
+import { warningToast } from '../utils/toastConfig';
 
 /**
  * * 테스트 폼 컴포넌트
@@ -39,7 +40,7 @@ export const TestForm = ({ setResult }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (answers.some((item) => !item.answer)) {
-      alert('모든 질문에 응답해주세요!');
+      warningToast('모든 질문에 응답해주세요!');
       return;
     }
     const mbtiResult = calculateMBTI(answers);
@@ -55,14 +56,19 @@ export const TestForm = ({ setResult }) => {
   };
 
   return (
-    <div>
-      <h2>MBTI 테스트</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-col justify-center items-center shadow-xl p-10 rounded-xl w-[90%] m-10 bg-[#fbfbfd]">
+      <h2 className="font-semibold text-3xl m-5">MBTI 테스트</h2>
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5 m-5">
         {questions.map((question, index) => (
-          <div key={question.id}>
-            <p>{question.question}</p>
+          <div key={question.id} className="flex flex-col w-full p-5 gap-2">
+            <p className="font-semibold text-lg my-2">
+              {index + 1}. {question.question}
+            </p>
             {question.options.map((option, i) => (
-              <label key={i}>
+              <label
+                key={i}
+                className="flex p-3 border rounded-lg bg-white hover:bg-[#edf6fc]"
+              >
                 <input
                   type="radio"
                   name={`question-${question.id}`}
@@ -70,12 +76,17 @@ export const TestForm = ({ setResult }) => {
                   checked={answers[index]?.answer === option}
                   onChange={() => handleChange(index, option)}
                 />
-                {option}
+                <p className="mx-2">{option}</p>
               </label>
             ))}
           </div>
         ))}
-        <button type="submit">제출하기</button>
+        <button
+          type="submit"
+          className="w-full px-5 py-4 m-3 font-semibold rounded-lg bg-[#34495e] hover:bg-[#425e79] text-white"
+        >
+          제출하기
+        </button>
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTestResults } from '../api/testResult';
 import { TestResultList } from '../components/TestResultList';
+import { errorToast } from '../utils/toastConfig';
 
 // * 결과 리스트 페이지 컴포넌트
 export const Results = () => {
@@ -12,7 +13,7 @@ export const Results = () => {
         const data = await getTestResults();
         setResults(data);
       } catch (error) {
-        alert(error.message);
+        errorToast(error.message);
         console.error(error);
       }
     };
@@ -23,5 +24,9 @@ export const Results = () => {
     return <div>로딩중입니다...</div>;
   }
 
-  return <TestResultList results={results} />;
+  return (
+    <div className="flex justify-center items-center">
+      <TestResultList results={results} />
+    </div>
+  );
 };

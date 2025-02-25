@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { updateProfile } from '../api/auth';
 import { authStore } from '../zustand/authStore';
+import { successToast, errorToast } from '../utils/toastConfig';
 
 /**
  * * 유저 프로필 카드 컴포넌트
@@ -36,9 +37,9 @@ export const ProfileCard = () => {
 
     try {
       const data = await updateProfile(formData, token);
-      alert(data.message);
+      successToast(data.message);
     } catch (error) {
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 
@@ -48,18 +49,31 @@ export const ProfileCard = () => {
   }
 
   return (
-    <div>
-      <h2>프로필 수정</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="nickname">닉네임</label>
-        <input
-          id="nickname"
-          type="text"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          name="nickname"
-        />
-        <button type="submit">프로필 업데이트</button>
+    <div className="flex flex-col justify-center items-center shadow-xl p-10 rounded-xl w-[500px] m-10 bg-[#fbfbfd]">
+      <h2 className="font-semibold text-3xl m-5">프로필 수정</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full flex flex-col justify-center items-center gap-4"
+      >
+        <label htmlFor="nickname" className="w-full flex flex-col gap-2">
+          <span className="w-full mx-2 text-sm font-semibold text-gray-500">
+            닉네임
+          </span>
+          <input
+            id="nickname"
+            type="text"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            name="nickname"
+            className="w-full border border-lighgray-400 rounded-md p-4"
+          />
+        </label>
+        <button
+          type="submit"
+          className="w-full px-5 py-4 m-3 font-semibold rounded-lg bg-[#34495e] hover:bg-[#425e79] text-white"
+        >
+          프로필 업데이트
+        </button>
       </form>
     </div>
   );

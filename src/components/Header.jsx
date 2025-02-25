@@ -15,18 +15,33 @@ export const Header = () => {
   };
 
   return (
-    <header>
-      <nav>
-        <Link to="/">홈</Link>
+    <header className="w-full p-10 bg-[#34495e] text-white shadow-md">
+      <nav className="flex items-center text-sm font-semibold gap-5">
+        <Link
+          to="/"
+          className="flex-grow text-lg text-[#FFCC00] hover:text-[#FFDC00]"
+        >
+          홈
+        </Link>
         {isLogin ? (
           <>
-            <Link to="/profile">프로필</Link>
-            <Link to="/test">테스트</Link>
-            <Link to="/results">결과 보기</Link>
-            <button onClick={handleLogout}>로그아웃</button>
+            <Link to="/profile" className="hover:text-[#FFCC00]">
+              프로필
+            </Link>
+            <Link to="/test" className="hover:text-[#FFCC00]">
+              테스트
+            </Link>
+            <Link to="/results" className="hover:text-[#FFCC00]">
+              결과 보기
+            </Link>
+            <button onClick={handleLogout} className="hover:text-[#FFCC00]">
+              로그아웃
+            </button>
           </>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/login" className="hover:text-[#FFCC00]">
+            로그인
+          </Link>
         )}
       </nav>
     </header>

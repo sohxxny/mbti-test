@@ -44,13 +44,19 @@ export const TestResultList = ({ results }) => {
       <h2 className="font-semibold text-3xl m-5">
         다른 사람들의 결과를 확인해볼까요?
       </h2>
-      {filteredResults.map((result) => (
-        <TestResultItem
-          key={result.id}
-          result={result}
-          handleDeleteResult={handleDeleteResult}
-        />
-      ))}
+      {results.length === 0 ? (
+        <p className="text-sm font-semibold text-gray-500 m-5">
+          아직 결과가 없습니다.
+        </p>
+      ) : (
+        filteredResults.map((result) => (
+          <TestResultItem
+            key={result.id}
+            result={result}
+            handleDeleteResult={handleDeleteResult}
+          />
+        ))
+      )}
     </div>
   );
 };

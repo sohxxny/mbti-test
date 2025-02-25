@@ -21,7 +21,11 @@ export const Results = () => {
   }, []);
 
   if (!results) {
-    return <div>로딩중입니다...</div>;
+    return (
+      <div className="h-[70vh] flex justify-center items-center">
+        <span className="text-sm font-semibold">로딩중입니다...</span>
+      </div>
+    );
   }
 
   return (

@@ -45,7 +45,11 @@ export const ProfileCard = () => {
 
   // 유저 정보가 없으면 로딩 띄우기
   if (!userProfile) {
-    return <p>로딩중입니다...</p>;
+    return (
+      <div className="h-[70vh] flex justify-center items-center">
+        <span className="text-sm font-semibold">로딩중입니다...</span>
+      </div>
+    );
   }
 
   return (
